@@ -6,7 +6,7 @@
 ## 使用说明
 1. 首先下载
 ```
-go get -v github.com/hunterhug/go-image
+go get -v -u github.com/hunterhug/go-image
 ```
 2. 主要函数
 
