@@ -4,11 +4,11 @@
 ><p>2.简单封装后对jpg和png图像进行缩放|裁剪的库
 
 ## 使用说明
-1. 首先下载
+1.首先下载
 ```
 go get -v -u github.com/hunterhug/go-image
 ```
-2. 主要函数
+2.主要函数
 
 按照宽度进行等比例缩放,第一参数是图像文件,第二个参数是缩放后的保存文件路径
 ```
@@ -106,13 +106,13 @@ func main() {
 文件改名失败:./testdata/gopher400.png文件已经存在
 ```
 
-原始图片
+<p>原始图片
 <img src='https://raw.githubusercontent.com/hunterhug/go-image/master/gopher.png' />
 
-宽度200px等比例缩放裁剪
+<p>宽度200px等比例缩放裁剪
 <img src='https://raw.githubusercontent.com/hunterhug/go-image/master/gopher200.png' />
 
-宽度200px,高度400px等比例缩放裁剪
+<p>宽度200px,高度400px等比例缩放裁剪
 <img src='https://raw.githubusercontent.com/hunterhug/go-image/master/gopher200*400.png' />
 
 ## 来自
