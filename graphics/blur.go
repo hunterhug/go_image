@@ -5,7 +5,7 @@
 package graphics
 
 import (
-	"github.com/hunterhug/go-image/graphics/convolve"
+	"github.com/hunterhug/go_image/graphics/convolve"
 	"errors"
 	"image"
 	"image/draw"

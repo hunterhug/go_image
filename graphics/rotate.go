@@ -5,7 +5,7 @@
 package graphics
 
 import (
-	"github.com/hunterhug/go-image/graphics/interp"
+	"github.com/hunterhug/go_image/graphics/interp"
 	"errors"
 	"image"
 	"image/draw"

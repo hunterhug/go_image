@@ -5,7 +5,7 @@
 package graphics
 
 import (
-	"github.com/hunterhug/go-image/graphics/graphicstest"
+	"github.com/hunterhug/go_image/graphics/graphicstest"
 	"image"
 	"testing"
 

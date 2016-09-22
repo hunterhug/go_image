@@ -2,7 +2,7 @@ package go_image
 
 import (
 	//"errors"
-	"github.com/hunterhug/go-image/graphics"
+	"github.com/hunterhug/go_image/graphics"
 	"image"
 	"image/jpeg"
 	"image/png"
@@ -88,6 +88,7 @@ func LoadImage(path string) (img image.Image, filetype string, err error) {
 // 将编码对象存入文件中
 func SaveImage(path string, img *image.RGBA, filetype string) (err error) {
 	file, err := os.Create(path)
+	defer file.Close()
 	if err != nil {
 		return
 	}

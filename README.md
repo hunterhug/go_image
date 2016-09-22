@@ -1,12 +1,12 @@
 # 简单二次封装的golang图像处理库:图片裁剪
 ##功能
-> 1.Go语言下的官方图像处理库
+> 1.Go语言下的官方图像处理库，貌似已经找不到了，所以收藏起来
 ><p>2.简单封装后对jpg和png图像进行缩放|裁剪的库
 
 ## 使用说明
 1.首先下载
 ```
-go get -v -u github.com/hunterhug/go-image
+go get -v -u github.com/hunterhug/go_image
 ```
 2.主要函数
 
@@ -31,17 +31,17 @@ err=ChangeImageName(savepath,realfilename,false)
 ```
 
 ## 使用示例
-###example.go
+###example_test.go
 ```
-package main
+package go_image
 
 import (
 	"fmt"
-	. "github.com/hunterhug/go-image/go_image"
+	"testing"
 )
 
 //将某一图片文件进行缩放后存入另外的文件中
-func main() {
+func TestImage(t *testing.T) {
 	//打印当前文件夹位置
 	fmt.Printf("本文件文件夹位置:%s\n", CurDir())
 
@@ -49,8 +49,8 @@ func main() {
 	filename := "./testdata/gopher.png"
 
 	//保存位置
-	savepath := "./testdata/gopher400.jpg"
-	save1path := "./testdata/gopher400*400.png"
+	savepath := "./testdata/gopher200.jpg"
+	save1path := "./testdata/gopher200*400.png"
 
 	//宽度,高度
 	width := 200
@@ -60,16 +60,16 @@ func main() {
 	err := ScaleF2F(filename, savepath, width)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
-	}else{
-		fmt.Printf("生成按宽度缩放图%s\n",savepath)
+	} else {
+		fmt.Printf("生成按宽度缩放图%s\n", savepath)
 	}
 
 	//按照宽度和高度进行等比例缩放
 	err = ThumbnailF2F(filename, save1path, width, height)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
-	}else{
-		fmt.Printf("生成按宽度高度缩放图%s\n",save1path)
+	} else {
+		fmt.Printf("生成按宽度高度缩放图%s\n", save1path)
 	}
 
 	//查看图像文件的真正名字
@@ -82,16 +82,16 @@ func main() {
 	}
 
 	//文件改名,不强制性
-	err=ChangeImageName(savepath,realfilename,false)
-	if err!=nil{
-		fmt.Printf("文件改名失败:%s%s",realfilename,err.Error())
+	err = ChangeImageName(savepath, realfilename, false)
+	if err != nil {
+		fmt.Printf("文件改名失败:%s%s\n", realfilename, err.Error())
 	}
 
 	//文件改名,强制性
-	err=ChangeImageName(savepath,realfilename,true)
-	if err!=nil{
-		fmt.Printf("文件改名失败:%s%s",realfilename,err.Error())
-	}else{
+	err = ChangeImageName(savepath, realfilename, true)
+	if err != nil {
+		fmt.Printf("文件改名失败:%s%s\n", realfilename, err.Error())
+	} else {
 		fmt.Println("改名成功")
 	}
 }
@@ -99,21 +99,23 @@ func main() {
 
 ###结果
 ```
-本文件文件夹位置:/home/hunterhug/golang/pikapika/src/github.com/hunterhug/go-image
-生成按宽度缩放图./testdata/gopher400.jpg
-生成按宽度高度缩放图./testdata/gopher400*400.png
-真正的文件名:./testdata/gopher400.png
-文件改名失败:./testdata/gopher400.png文件已经存在
+/home/hunterhug/golang/go1.6/bin/go test -v github.com/hunterhug/go_image -run ^TestImage$
+本文件文件夹位置:/home/hunterhug/golang/pikapika/src/github.com/hunterhug/go_image
+生成按宽度缩放图./testdata/gopher200.jpg
+生成按宽度高度缩放图./testdata/gopher200*400.png
+真正的文件名:./testdata/gopher200.png
+文件改名失败:./testdata/gopher200.pngFile already exist error
+改名成功
 ```
 
 <p>原始图片
-<img src='https://raw.githubusercontent.com/hunterhug/go-image/master/gopher.png' />
+<img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher.png' />
 
 <p>宽度200px等比例缩放裁剪
-<img src='https://raw.githubusercontent.com/hunterhug/go-image/master/gopher200.png' />
+<img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher200.png' />
 
 <p>宽度200px,高度400px等比例缩放裁剪
-<img src='https://raw.githubusercontent.com/hunterhug/go-image/master/gopher200*400.png' />
+<img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher200*400.png' />
 
 ## 来自
 This is a Graphics library for the Go programming language.

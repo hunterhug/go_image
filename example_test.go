@@ -1,12 +1,12 @@
-package main
+package go_image
 
 import (
 	"fmt"
-	. "github.com/hunterhug/go-image/go_image"
+	"testing"
 )
 
 //将某一图片文件进行缩放后存入另外的文件中
-func main() {
+func TestImage(t *testing.T) {
 	//打印当前文件夹位置
 	fmt.Printf("本文件文件夹位置:%s\n", CurDir())
 
@@ -25,16 +25,16 @@ func main() {
 	err := ScaleF2F(filename, savepath, width)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
-	}else{
-		fmt.Printf("生成按宽度缩放图%s\n",savepath)
+	} else {
+		fmt.Printf("生成按宽度缩放图%s\n", savepath)
 	}
 
 	//按照宽度和高度进行等比例缩放
 	err = ThumbnailF2F(filename, save1path, width, height)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
-	}else{
-		fmt.Printf("生成按宽度高度缩放图%s\n",save1path)
+	} else {
+		fmt.Printf("生成按宽度高度缩放图%s\n", save1path)
 	}
 
 	//查看图像文件的真正名字
@@ -47,16 +47,16 @@ func main() {
 	}
 
 	//文件改名,不强制性
-	err=ChangeImageName(savepath,realfilename,false)
-	if err!=nil{
-		fmt.Printf("文件改名失败:%s%s",realfilename,err.Error())
+	err = ChangeImageName(savepath, realfilename, false)
+	if err != nil {
+		fmt.Printf("文件改名失败:%s%s\n", realfilename, err.Error())
 	}
 
 	//文件改名,强制性
-	err=ChangeImageName(savepath,realfilename,true)
-	if err!=nil{
-		fmt.Printf("文件改名失败:%s%s",realfilename,err.Error())
-	}else{
+	err = ChangeImageName(savepath, realfilename, true)
+	if err != nil {
+		fmt.Printf("文件改名失败:%s%s\n", realfilename, err.Error())
+	} else {
 		fmt.Println("改名成功")
 	}
 }
