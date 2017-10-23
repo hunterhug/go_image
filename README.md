@@ -1,13 +1,17 @@
 # 简单二次封装的golang图像处理库:图片裁剪
-##功能
+
+## 功能
+
 > 1.Go语言下的官方图像处理库，貌似已经找不到了，所以收藏起来
 ><p>2.简单封装后对jpg和png图像进行缩放|裁剪的库
 
 ## 使用说明
+
 1.首先下载
 ```
 go get -v -u github.com/hunterhug/go_image
 ```
+
 2.主要函数
 
 按照宽度进行等比例缩放,第一参数是图像文件,第二个参数是缩放后的保存文件路径
@@ -31,7 +35,9 @@ err=ChangeImageName(savepath,realfilename,false)
 ```
 
 ## 使用示例
-###example_test.go
+
+### example_test.go
+
 ```
 package go_image
 
@@ -97,7 +103,8 @@ func TestImage(t *testing.T) {
 }
 ```
 
-###结果
+### 结果
+
 ```
 /home/hunterhug/golang/go1.6/bin/go test -v github.com/hunterhug/go_image -run ^TestImage$
 本文件文件夹位置:/home/hunterhug/golang/pikapika/src/github.com/hunterhug/go_image
@@ -111,13 +118,16 @@ func TestImage(t *testing.T) {
 <p>原始图片
 <img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher.png' />
 
+
 <p>宽度200px等比例缩放裁剪
 <img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher200.png' />
+
 
 <p>宽度200px,高度400px等比例缩放裁剪
 <img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher200*400.png' />
 
 ## 来自
+
 This is a Graphics library for the Go programming language.
 
 Unless otherwise noted, the graphics-go source files are distributed
@@ -126,7 +136,7 @@ under the BSD-style license found in the LICENSE file.
 Contributions should follow the same procedure as for the Go project:
 http://golang.org/doc/contribute.html
 
-##联系
+## 联系
 >Time:2016/8/10
 ><p>author:hunterhug
 
