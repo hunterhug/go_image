@@ -121,17 +121,17 @@ func TestImage(t *testing.T) {
 
 原始图片:
 
-![/testdata/gopher.png]()
+![/testdata/gopher.png](/testdata/gopher.png)
 
 
 宽度200px等比例缩放裁剪:
 
 
-![testdata/gopher200.png]()
+![testdata/gopher200.png](testdata/gopher200.png)
 
 宽度200px,高度400px等比例缩放裁剪:
 
-![/testdata/gopher200_400.png]()
+![/testdata/gopher200_400.png](/testdata/gopher200_400.png)
 
 ## 来自
 
