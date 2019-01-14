@@ -15,21 +15,25 @@ go get -v -u github.com/hunterhug/go_image
 2.主要函数
 
 按照宽度进行等比例缩放,第一参数是图像文件,第二个参数是缩放后的保存文件路径
+
 ```
 err := ScaleF2F(filename, savepath, width)
 ```
 
 按照宽度和高度进行等比例缩放,第一参数是图像文件,第二个参数是缩放后的保存文件路径
+
 ```
 err = ThumbnailF2F(filename, save1path, width, height)
 ```
 
 检测图像文件真正文件类型,并返回真实文件名,参数为图像文件位置
+
 ```
 realfilename, err := RealImageName(savepath)
 ```
 
 改变图像文件名,第一个参数为文件原始名字,第二个参数是文件改名后名字,第三个参数表示是否强制改名
+
 ```
 err=ChangeImageName(savepath,realfilename,false)
 ```
@@ -56,7 +60,7 @@ func TestImage(t *testing.T) {
 
 	//保存位置
 	savepath := "./testdata/gopher200.jpg"
-	save1path := "./testdata/gopher200*400.png"
+	save1path := "./testdata/gopher200_400.png"
 
 	//宽度,高度
 	width := 200
@@ -115,16 +119,19 @@ func TestImage(t *testing.T) {
 改名成功
 ```
 
-<p>原始图片
-<img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher.png' />
+原始图片:
+
+![/testdata/gopher.png]()
 
 
-<p>宽度200px等比例缩放裁剪
-<img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher200.png' />
+宽度200px等比例缩放裁剪:
 
 
-<p>宽度200px,高度400px等比例缩放裁剪
-<img src='https://raw.githubusercontent.com/hunterhug/go_image/master/testdata/gopher200*400.png' />
+![testdata/gopher200.png]()
+
+宽度200px,高度400px等比例缩放裁剪:
+
+![/testdata/gopher200_400.png]()
 
 ## 来自
 
@@ -135,8 +142,4 @@ under the BSD-style license found in the LICENSE file.
 
 Contributions should follow the same procedure as for the Go project:
 http://golang.org/doc/contribute.html
-
-## 联系
->Time:2016/8/10
-><p>author:hunterhug
 

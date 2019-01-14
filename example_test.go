@@ -15,7 +15,7 @@ func TestImage(t *testing.T) {
 
 	//保存位置
 	savepath := "./testdata/gopher200.jpg"
-	save1path := "./testdata/gopher200*400.png"
+	save1path := "./testdata/gopher200_400.png"
 
 	//宽度,高度
 	width := 200
@@ -49,13 +49,13 @@ func TestImage(t *testing.T) {
 	//文件改名,不强制性
 	err = ChangeImageName(savepath, realfilename, false)
 	if err != nil {
-		fmt.Printf("文件改名失败:%s%s\n", realfilename, err.Error())
+		fmt.Printf("文件改名失败:%s,%s\n", realfilename, err.Error())
 	}
 
 	//文件改名,强制性
 	err = ChangeImageName(savepath, realfilename, true)
 	if err != nil {
-		fmt.Printf("文件改名失败:%s%s\n", realfilename, err.Error())
+		fmt.Printf("文件改名失败:%s,%s\n", realfilename, err.Error())
 	} else {
 		fmt.Println("改名成功")
 	}

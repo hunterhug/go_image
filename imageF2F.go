@@ -11,6 +11,7 @@ import (
 	"runtime"
 	"strings"
 )
+
 //按宽度和高度进行比例缩放
 func ThumbnailF2F(filename string, savepath string, width int, height int) (err error) {
 	dst := image.NewRGBA(image.Rect(0, 0, width, height))
@@ -50,7 +51,7 @@ func RealImageName(filename string) (filenewname string, err error) {
 	if len(temp) < 2 {
 		err = FileNameError
 	}
-	temp[len(temp) - 1] = ext
+	temp[len(temp)-1] = ext
 	filenewname = strings.Join(temp, ".")
 	return
 }
@@ -58,9 +59,9 @@ func RealImageName(filename string) (filenewname string, err error) {
 //文件改名,如果force为假,且新的文件名已经存在,那么抛出错误
 func ChangeImageName(oldname string, newname string, force bool) (err error) {
 	if !force {
-		_,err = os.Open(newname)
+		_, err = os.Open(newname)
 		if err == nil {
-			err=FileExistError
+			err = FileExistError
 			return
 		}
 	}
@@ -68,6 +69,7 @@ func ChangeImageName(oldname string, newname string, force bool) (err error) {
 	return
 
 }
+
 // 获取调用者的当前文件DIR
 func CurDir() string {
 	_, filename, _, _ := runtime.Caller(1)
@@ -111,7 +113,7 @@ func Scale(filename string, newdx int) (dst *image.RGBA, filetype string, err er
 	bound := src.Bounds()
 	dx := bound.Dx()
 	dy := bound.Dy()
-	dst = image.NewRGBA(image.Rect(0, 0, newdx, newdx * dy / dx))
+	dst = image.NewRGBA(image.Rect(0, 0, newdx, newdx*dy/dx))
 	// 产生缩略图,等比例缩放
 	err = graphics.Scale(dst, src)
 	return
