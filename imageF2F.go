@@ -1,49 +1,107 @@
 package go_image
 
 import (
+	"bytes"
 	//"errors"
 	"github.com/hunterhug/go_image/graphics"
 	"image"
 	"image/jpeg"
 	"image/png"
+	"io"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
 )
 
-//按宽度和高度进行比例缩放
-func ThumbnailF2F(filename string, savepath string, width int, height int) (err error) {
-	dst := image.NewRGBA(image.Rect(0, 0, width, height))
-
-	src, filetype, err := LoadImage(filename)
+//按宽度和高度进行比例缩放，输入和输出都是图片字节数组
+func ThumbnailB2B(InRaw []byte, width int, height int) (OutRaw []byte, err error) {
+	src, filetype, err := LoadImage(bytes.NewReader(InRaw))
 	if err != nil {
 		return
 	}
+	dst := image.NewRGBA(image.Rect(0, 0, width, height))
 	err = graphics.Thumbnail(dst, src)
 	if err != nil {
 		return
 	}
-	err = SaveImage(savepath, dst, filetype)
+
+	w := new(bytes.Buffer)
+	err = SaveImage(dst, filetype, w)
+	if err != nil {
+		return
+	}
+
+	OutRaw = w.Bytes()
 	return
 }
 
-//按宽度进行比例缩放
+// 按宽度和高度进行比例缩放，输入和输出都是文件
+func ThumbnailF2F(filename string, savepath string, width int, height int) (err error) {
+	raw, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+
+	out, err := ThumbnailB2B(raw, width, height)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(savepath, out, 0777)
+	if err != nil {
+		return err
+	}
+
+	return
+}
+
+//按宽度进行比例缩放，输入和输出都是图片字节数组
+func ScaleB2B(InRaw []byte, width int) (OutRaw []byte, err error) {
+	img, filetype, err := Scale(InRaw, width)
+	if err != nil {
+		return
+	}
+
+	buffer := new(bytes.Buffer)
+	err = SaveImage(img, filetype, buffer)
+	if err != nil {
+		return
+	}
+
+	OutRaw = buffer.Bytes()
+	return
+}
+
+//按宽度进行比例缩放，输入输出都是文件
 func ScaleF2F(filename string, savepath string, width int) (err error) {
-	img, filetype, err := Scale(filename, width)
+	raw, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return
+		return err
 	}
-	err = SaveImage(savepath, img, filetype)
+
+	out, err := ScaleB2B(raw, width)
 	if err != nil {
-		return
+		return err
 	}
+
+	err = ioutil.WriteFile(savepath, out, 0777)
+	if err != nil {
+		return err
+	}
+
 	return
 }
 
 //图像文件的真正名字
-func RealImageName(filename string) (filenewname string, err error) {
-	_, ext, err := LoadImage(filename)
+func RealImageName(filename string) (filerealname string, err error) {
+	raw, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+
+	_, ext, err := LoadImage(bytes.NewReader(raw))
 	if err != nil {
 		return
 	}
@@ -52,7 +110,7 @@ func RealImageName(filename string) (filenewname string, err error) {
 		err = FileNameError
 	}
 	temp[len(temp)-1] = ext
-	filenewname = strings.Join(temp, ".")
+	filerealname = strings.Join(temp, ".")
 	return
 }
 
@@ -77,36 +135,28 @@ func CurDir() string {
 }
 
 // 根据文件名打开图片,并编码,返回编码对象和文件类型
-func LoadImage(path string) (img image.Image, filetype string, err error) {
-	file, err := os.Open(path)
+func LoadImage(r io.Reader) (img image.Image, filetype string, err error) {
+	img, filetype, err = image.Decode(r)
 	if err != nil {
-		return
 	}
-	defer file.Close()
-	img, filetype, err = image.Decode(file)
 	return
 }
 
-// 将编码对象存入文件中
-func SaveImage(path string, img *image.RGBA, filetype string) (err error) {
-	file, err := os.Create(path)
-	defer file.Close()
-	if err != nil {
-		return
-	}
+// 将编码对象进行处理后返回字节数组
+func SaveImage(img *image.RGBA, filetype string, w io.Writer) (err error) {
 	if filetype == "png" {
-		err = png.Encode(file, img)
+		err = png.Encode(w, img)
 	} else if filetype == "jpeg" {
-		err = jpeg.Encode(file, img, nil)
+		err = jpeg.Encode(w, img, nil)
 	} else {
 		err = ExtNotSupportError
 	}
 	return
 }
 
-//对文件中的图片进行等比例变化,宽度为newdx,返回图像编码和文件类型
-func Scale(filename string, newdx int) (dst *image.RGBA, filetype string, err error) {
-	src, filetype, err := LoadImage(filename)
+//对图片字节数组等比例变化,宽度为newdx,返回图像编码和文件类型
+func Scale(raw []byte, newdx int) (dst *image.RGBA, filetype string, err error) {
+	src, filetype, err := LoadImage(bytes.NewReader(raw))
 	if err != nil {
 		return
 	}

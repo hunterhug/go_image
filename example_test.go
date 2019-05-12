@@ -13,50 +13,50 @@ func TestImage(t *testing.T) {
 	//图像位置
 	filename := "./testdata/gopher.png"
 
-	//保存位置
-	savepath := "./testdata/gopher200.jpg"
-	save1path := "./testdata/gopher200_400.png"
-
 	//宽度,高度
-	width := 200
-	height := 400
+	width := 500
+	height := 800
+
+	//保存位置
+	save1 := "./testdata/gopher500.jpg"
+	save2 := "./testdata/gopher500_800.png"
 
 	//按照宽度进行等比例缩放
-	err := ScaleF2F(filename, savepath, width)
+	err := ScaleF2F(filename, save1, width)
 	if err != nil {
-		fmt.Printf("%s\n", err.Error())
+		fmt.Printf("生成按宽度缩放图失败：%s\n", err.Error())
 	} else {
-		fmt.Printf("生成按宽度缩放图%s\n", savepath)
+		fmt.Printf("生成按宽度缩放图：%s\n", save1)
 	}
 
 	//按照宽度和高度进行等比例缩放
-	err = ThumbnailF2F(filename, save1path, width, height)
+	err = ThumbnailF2F(filename, save2, width, height)
 	if err != nil {
-		fmt.Printf("%s\n", err.Error())
+		fmt.Printf("生成按宽度高度缩放图:%s\n", err.Error())
 	} else {
-		fmt.Printf("生成按宽度高度缩放图%s\n", save1path)
+		fmt.Printf("生成按宽度高度缩放图:%s\n", save2)
 	}
 
 	//查看图像文件的真正名字
-	//如 ./testdata/gopher400.jpg其实是png类型,但是命名错误,需要纠正!
-	realfilename, err := RealImageName(savepath)
+	//如 ./testdata/gopher500.jpg其实是png类型,但是命名错误,需要纠正!
+	realfilename, err := RealImageName(save1)
 	if err != nil {
-		fmt.Printf("%s\n", err.Error())
+		fmt.Printf("真正的文件名: %s->? err:%s\n", save1, err.Error())
 	} else {
-		fmt.Printf("真正的文件名:%s\n", realfilename)
-	}
-
-	//文件改名,不强制性
-	err = ChangeImageName(savepath, realfilename, false)
-	if err != nil {
-		fmt.Printf("文件改名失败:%s,%s\n", realfilename, err.Error())
+		fmt.Printf("真正的文件名:%s->%s\n", save1, realfilename)
 	}
 
 	//文件改名,强制性
-	err = ChangeImageName(savepath, realfilename, true)
+	err = ChangeImageName(save1, realfilename, true)
 	if err != nil {
-		fmt.Printf("文件改名失败:%s,%s\n", realfilename, err.Error())
+		fmt.Printf("文件改名失败:%s->%s,%s\n", save1, realfilename, err.Error())
 	} else {
 		fmt.Println("改名成功")
+	}
+
+	//文件改名,不强制性
+	err = ChangeImageName(save1, realfilename, false)
+	if err != nil {
+		fmt.Printf("文件改名失败:%s->%s,%s\n", save1, realfilename, err.Error())
 	}
 }
