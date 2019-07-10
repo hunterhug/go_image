@@ -1,5 +1,7 @@
 # 简单二次封装的golang图像处理库:图片裁剪
 
+[English Version Here](README_EN.md)
+
 ## 功能
 
 1. Go语言下的官方图像处理库，貌似已经找不到了，所以收藏起来
