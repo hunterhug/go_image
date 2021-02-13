@@ -1,63 +1,64 @@
-# 简单二次封装的golang图像处理库:图片裁剪
+# Simple Golang Picture transformation lib |  Thumbnail | Scale
 
-[English Version Here](README_EN.md)
+[中文说明](README_ZH.md)
 
-## 功能
+## What
 
-1. Go语言下的官方图像处理库，貌似已经找不到了，所以收藏起来
-2. 简单封装后对jpg和png图像进行缩放|裁剪的库
+1. Very hard to find such lib so I make this.
+2. Scale the size of Picture such the format of jpg or png.
 
-## 最新支持
 
-- 2019/5/12 支持传入图片字节数组来进行裁剪。
+## New
 
-## 使用说明
+- 2019/5/12 Support Bytes Stream of Picture to Scale.
 
-### 首先下载
+## How
+
+### Install
 
 ```
 go get -v -u github.com/hunterhug/go_image
 ```
 
-### 主要函数
+### Main funciton
 
-- 按宽度进行比例缩放，输入和输出都是图片字节数组:
+- Scale by width，input and output is bytes:
 
 ```
 func ScaleB2B(InRaw []byte, width int) (OutRaw []byte, err error)
 ```
 
-- 按宽度进行比例缩放，输入输出都是文件:
+- Scale by width，input and output is the location(filename) of picture:
 
 ```
 func ScaleF2F(filename string, savepath string, width int) (err error)
 ```
 
-- 按宽度和高度进行比例缩放，输入和输出都是图片字节数组:
+- Scale by width and height，input and output is bytes:
 
 ```
 func ThumbnailB2B(InRaw []byte, width int, height int) (OutRaw []byte, err error)
 ```
 
-- 按宽度和高度进行比例缩放，输入和输出都是文件:
+- Scale by width and height，input and output is the location(filename) of picture:
 
 ```
 func ThumbnailF2F(filename string, savepath string, width int, height int) (err error)
 ```
 
-- 检测图像文件真正文件类型,并返回真实文件名,参数为图像文件位置
+- Check the image real file type, such 4.jpg return 4.png(input is the location of file):
 
 ```
 func RealImageName(filename string) (filerealname string, err error)
 ```
 
-- 文件改名,如果force为假,且新的文件名已经存在,那么抛出错误
+- Rename the file,if file exist will throw err if force is false, when force is true overwrite:
 
 ```
 func ChangeImageName(oldname string, newname string, force bool) (err error) 
 ```
 
-## 使用示例
+## Example
 
 ### example_test.go
 
@@ -127,7 +128,7 @@ func TestImage(t *testing.T) {
 
 ```
 
-### 结果
+### Result
 
 ```
 === RUN   TestImage
@@ -141,21 +142,21 @@ func TestImage(t *testing.T) {
 PASS
 ```
 
-原始图片:
+Origin:
 
 ![/testdata/gopher.png](/testdata/gopher.png)
 
 
-宽度500px等比例缩放裁剪:
+Width 500px Scale:
 
 
 ![testdata/gopher500.png](testdata/gopher500.png)
 
-宽度500px,高度800px等比例缩放裁剪:
+Width 500px,Height 800px Scale:
 
 ![/testdata/gopher500_800.png](/testdata/gopher500_800.png)
 
-## 来自
+## Come from
 
 This is a Graphics library for the Go programming language.
 
